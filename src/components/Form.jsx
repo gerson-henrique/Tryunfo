@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Ative from './Ative';
 
 class Form extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class Form extends React.Component {
       cardTrunfo,
       cardImage,
       cardRare,
-      // hasTrunfo,
+      hasTrunfo,
       onInputChange,
       onSaveButtonClick,
       isSaveButtonDisabled,
@@ -66,7 +67,6 @@ class Form extends React.Component {
             type="number"
             data-testid="attr3-input"
             name="cardAttr3"
-            required
           />
         </label>
         <label htmlFor="imginp">
@@ -92,14 +92,13 @@ class Form extends React.Component {
           </select>
         </label>
         <label htmlFor="super trunfo">
-          Super Trunfo
-          <input
+          {hasTrunfo ? <Ative /> : <input
             data-testid="trunfo-input"
             type="checkbox"
             checked={ cardTrunfo }
             onChange={ onInputChange }
             name="cardTrunfo"
-          />
+          />}
         </label>
         <button
           type="button"
@@ -124,7 +123,7 @@ Form.defaultProps = {
   cardImage: '',
   cardRare: '',
   cardTrunfo: false,
-  // hasTrunfo: false,
+  hasTrunfo: false,
   isSaveButtonDisabled: true,
   onInputChange: () => {},
   onSaveButtonClick: () => {},
@@ -139,7 +138,7 @@ Form.propTypes = {
   cardImage: PropTypes.string,
   cardRare: PropTypes.string,
   cardTrunfo: PropTypes.bool,
-  // hasTrunfo: PropTypes.bool,
+  hasTrunfo: PropTypes.bool,
   isSaveButtonDisabled: PropTypes.bool,
   onInputChange: PropTypes.func,
   onSaveButtonClick: PropTypes.func,
