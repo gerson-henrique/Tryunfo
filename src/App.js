@@ -111,7 +111,8 @@ class App extends React.Component {
       cardImage,
       cardRare,
       hasTrunfo,
-      isSaveButtonDisabled } = this.state;
+      isSaveButtonDisabled,
+      cardDeck } = this.state;
 
     return (
       <div>
@@ -142,7 +143,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <Deck cardDeck={ this.cardDeck } />
+        <Deck cardDeck={ cardDeck } />
       </div>
     );
   }
