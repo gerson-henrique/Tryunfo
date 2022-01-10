@@ -10,6 +10,8 @@ class App extends React.Component {
     this.checkFullmentStates = this.checkFullmentStates.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.retirate = this.retirate.bind(this);
+
     this.state = {
       cardName: '',
       cardDescription: '',
@@ -61,6 +63,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      isSaveButtonDisabled: true,
 
     }));
   }
@@ -68,6 +71,14 @@ class App extends React.Component {
   onInputChange({ target }) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [target.name]: value }, this.checkFullmentStates);
+  }
+
+  retirate(target, trunf) {
+    const { cardDeck } = this.state;
+    this.setState((ante) => ({
+      cardDeck: cardDeck.filter((card) => (
+        card.cardName !== target)),
+      hasTrunfo: trunf === true ? false : ante.hasTrunfo }));
   }
 
   itsAtributeValid() {
@@ -143,7 +154,10 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <Deck cardDeck={ cardDeck } />
+        <Deck
+          cardDeck={ cardDeck }
+          retirate={ this.retirate }
+        />
       </div>
     );
   }

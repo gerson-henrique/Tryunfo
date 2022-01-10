@@ -4,7 +4,10 @@ import Card from './Card';
 
 class Deck extends React.Component {
   render() {
-    const { cardDeck } = this.props;
+    const {
+      cardDeck,
+      retirate,
+    } = this.props;
     return (
       <div>
         <ul>
@@ -23,6 +26,15 @@ class Deck extends React.Component {
                   cardRare={ cards.cardRare }
                   cardTrunfo={ cards.cardTrunfo }
                 />
+                <button
+                  type="button"
+                  data-testid="delete-button"
+                  onClick={ () => {
+                    retirate(cards.cardName, cards.cardTrunfo);
+                  } }
+                >
+                  Excluir
+                </button>
               </li>
             ))
           }
@@ -33,6 +45,7 @@ class Deck extends React.Component {
 }
 
 Deck.defaultProps = {
+  retirate: () => {},
   cardDeck: [{
     cardName: '',
     cardDescription: '',
@@ -46,6 +59,7 @@ Deck.defaultProps = {
 };
 
 Deck.propTypes = {
+  retirate: PropTypes.func,
   cardDeck: PropTypes.arrayOf(
     PropTypes.shape({
       cardName: PropTypes.string,
