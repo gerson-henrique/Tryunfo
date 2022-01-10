@@ -11,6 +11,7 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.retirate = this.retirate.bind(this);
+    this.handleFilterName = this.handleFilterName.bind(this);
 
     this.state = {
       cardName: '',
@@ -24,7 +25,22 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       cardDeck: [],
+      valorProp: '',
     };
+  }
+
+  handleFilterName({ target }) {
+    const { cardDeck, valorProp } = this.state;
+    this.setState(({
+      [target.name]: target.value,
+      cardDeck: cardDeck.filter((card) => (
+        card.cardName.includes(valorProp))),
+    }));
+  }
+
+  onInputChange({ target }) {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({ [target.name]: value }, this.checkFullmentStates);
   }
 
   onSaveButtonClick() {
@@ -66,11 +82,6 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
 
     }));
-  }
-
-  onInputChange({ target }) {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [target.name]: value }, this.checkFullmentStates);
   }
 
   retirate(target, trunf) {
@@ -123,7 +134,9 @@ class App extends React.Component {
       cardRare,
       hasTrunfo,
       isSaveButtonDisabled,
-      cardDeck } = this.state;
+      cardDeck,
+      valorProp,
+    } = this.state;
 
     return (
       <div>
@@ -155,8 +168,10 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <Deck
+          valorProp={ valorProp }
           cardDeck={ cardDeck }
           retirate={ this.retirate }
+          handleFilterName={ this.handleFilterName }
         />
       </div>
     );

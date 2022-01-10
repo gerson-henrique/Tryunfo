@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import Card from './Card';
 
 class Deck extends React.Component {
@@ -7,9 +7,18 @@ class Deck extends React.Component {
     const {
       cardDeck,
       retirate,
+      handleFilterName,
+      valorProp,
     } = this.props;
     return (
       <div>
+        <input
+          name="valorProp"
+          type="text"
+          data-testid="name-filter"
+          value={ valorProp }
+          onChange={ handleFilterName }
+        />
         <ul>
           {
             cardDeck.map((cards) => (
@@ -46,6 +55,8 @@ class Deck extends React.Component {
 
 Deck.defaultProps = {
   retirate: () => {},
+  handleFilterName: () => {},
+  valorProp: '',
   cardDeck: [{
     cardName: '',
     cardDescription: '',
@@ -59,6 +70,8 @@ Deck.defaultProps = {
 };
 
 Deck.propTypes = {
+  valorProp: string,
+  handleFilterName: PropTypes.func,
   retirate: PropTypes.func,
   cardDeck: PropTypes.arrayOf(
     PropTypes.shape({
