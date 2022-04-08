@@ -52,7 +52,6 @@ class Deck extends React.Component {
     );
   }
 }
-
 Deck.defaultProps = {
   retirate: () => {},
   handleFilterName: () => {},
